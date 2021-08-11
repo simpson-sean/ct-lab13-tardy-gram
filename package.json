@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "Npm": "^3.0.0",
+    "cookie-parser": "^1.4.5",
     "cookieparser": "^0.1.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
