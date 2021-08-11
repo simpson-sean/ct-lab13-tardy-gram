@@ -29,7 +29,6 @@
     "supertest": "^6.1.4"
   },
   "dependencies": {
-    "Npm": "^3.0.0",
     "cookie-parser": "^1.4.5",
     "cookieparser": "^0.1.0",
     "dotenv": "^10.0.0",
@@ -37,6 +36,7 @@
     "i": "^0.3.6",
     "jsonwebtoken": "^8.5.1",
     "node-fetch": "^2.6.1",
+    "Npm": "^3.0.0",
     "pg": "^8.7.1"
   }
 }
