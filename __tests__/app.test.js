@@ -3,6 +3,7 @@ const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
 const User = require('../lib/models/User');
+const Post = require('../lib/models/Post');
 
 
 jest.mock('../lib/middleware/ensure-auth.js', () => (req, res, next) => {
@@ -59,5 +60,38 @@ describe('Image Post Route', () => {
       username: 'test_user',
     }); 
   });
+});
+
+describe('comment routes', () => {
+  beforeEach(() => {
+    return setup(pool).then(() =>
+      User.insert({
+        username: 'test_user',
+        avatarUrl: 'http://example.com/image.png',
+      })
+    ).then(() =>
+      Post.insert({
+        photoUrl: 'xyz.com',
+        caption: 'hotsummer',
+        tags: ['Portland'],
+        username: 'test_user',
+      })
+    );
+  });
+    
+  it('Make a comment on a post', async () => {
+    const comment = {
+      comment: 'haha, nice one',
+      post: '1',
+    };
+
+    const res = await request(app).post('/api/v1/auth/comments').send(comment);
+
+    expect(res.body).toEqual({
+      id: '1',
+      ...comment,
+      commentBy: 'test_user'
+    });
+  }); 
 }); 
 
