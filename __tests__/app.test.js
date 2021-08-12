@@ -3,6 +3,7 @@ const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
 const User = require('../lib/models/User');
+const Post = require('../lib/models/Post');
 
 
 jest.mock('../lib/middleware/ensure-auth.js', () => (req, res, next) => {
@@ -59,5 +60,22 @@ describe('Image Post Route', () => {
       username: 'test_user',
     }); 
   });
+
+  describe('', () => {
+    beforeEach(() => {
+      return setup(pool).then(() =>
+        Post.insert({
+          photoUrl: 'xyz.com',
+          caption: 'hotsummer',
+          tags: ['Portland'],
+          username: 'test_user',
+        })
+      );
+    });
+    
+    it('', () => {
+      
+    }); 
+  }); 
 }); 
 
