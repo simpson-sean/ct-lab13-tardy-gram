@@ -54,6 +54,7 @@ describe('Image Post Route', () => {
     const res = await request(app).post('/api/v1/auth/post').send(post);
     
     expect(res.body).toEqual({
+      id: '1',
       ...post,
       username: 'test_user',
     }); 
