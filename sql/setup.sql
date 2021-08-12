@@ -11,3 +11,4 @@ CREATE TABLE posts (
   tags TEXT [],
   username TEXT REFERENCES users(github_username)
 );
+
