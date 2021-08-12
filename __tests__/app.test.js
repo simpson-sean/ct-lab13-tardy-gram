@@ -33,3 +33,31 @@ describe('auth routes', () => {
     });
   });
 });
+
+describe('Image Post Route', () => {
+  beforeEach(() => {
+    return setup(pool).then(() =>
+      User.insert({
+        username: 'test_user',
+        avatarUrl: 'http://example.com/image.png',
+      })
+    );
+  });
+  
+  it('Make a post to Tardy Gram', async () => {
+    const post = {
+      photoUrl: 'alchemycrrrrylab',
+      caption: 'waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaah',
+      tags: ['tear', 'DJ', 'dJ'],
+    };
+    
+    const res = await request(app).post('/api/v1/auth/post').send(post);
+    
+    expect(res.body).toEqual({
+      id: '1',
+      ...post,
+      username: 'test_user',
+    }); 
+  });
+}); 
+
