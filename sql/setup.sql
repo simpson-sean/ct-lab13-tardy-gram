@@ -18,3 +18,5 @@ CREATE TABLE comments (
   post BIGINT NOT NULL REFERENCES posts(id),  
   comment_by TEXT NOT NULL REFERENCES users(github_username)
 ); 
+
+
