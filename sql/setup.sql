@@ -5,7 +5,7 @@ CREATE TABLE users (
   github_avatar_url TEXT NOT NULL
 );
 CREATE TABLE posts (
-  id BIGINT NOT NULL PRIMARY KEY,
+  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   photo_url TEXT NOT NULL,
   caption TEXT,
   tags TEXT [],
