@@ -105,7 +105,7 @@ describe('comment routes', () => {
     const res = await request(app).delete(`/api/v1/auth/comments/${comment.id}`)
 
     expect(res.body).toEqual({
-      message: "Comment had been deleted",
+      message: `${res.body.comment} has been deleted`,
     })
   })
 }); 
