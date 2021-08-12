@@ -4,6 +4,7 @@ const request = require('supertest');
 const app = require('../lib/app');
 const User = require('../lib/models/User');
 const Post = require('../lib/models/Post');
+const Comment = require('../lib/models/Comment.js');
 
 
 jest.mock('../lib/middleware/ensure-auth.js', () => (req, res, next) => {
@@ -93,5 +94,19 @@ describe('comment routes', () => {
       commentBy: 'test_user'
     });
   }); 
+
+  it('deletes a comment', async () => {
+    const comment = await Comment.insert({
+      comment: 'haha, you got me',
+      post: '1',
+      commentBy: 'test_user',
+    });
+
+    const res = await request(app).delete(`/api/v1/auth/comments/${comment.id}`)
+
+    expect(res.body).toEqual({
+      message: `${res.body.comment} has been deleted`,
+    })
+  })
 }); 
 
