@@ -61,7 +61,7 @@ describe('Image Post Route', () => {
     }); 
   });
 
-  describe('', () => {
+  describe('comment routes', () => {
     beforeEach(() => {
       return setup(pool).then(() =>
         Post.insert({
@@ -73,8 +73,19 @@ describe('Image Post Route', () => {
       );
     });
     
-    it('', () => {
-      
+    it('Make a comment on a post', async () => {
+      const comment = {
+        comment: 'haha, nice one',
+        post: 1,
+        commentBy: 'test_user'
+      };
+
+      const res = await request(app).post('/api/v1/auth/comments').send(comment);
+
+      expect(res.body).toEqual({
+        id: '1',
+        ...comment
+      });
     }); 
   }); 
 }); 
