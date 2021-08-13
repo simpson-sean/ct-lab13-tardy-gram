@@ -61,9 +61,7 @@ describe('Image Post Route', () => {
     });
   });
 
-
   it('gets all tardygram posts', async () => {
-
     const post1 = await Post.insert({
       photoUrl: 'alchemycrrrrylab',
       caption: 'waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaah',
@@ -81,7 +79,6 @@ describe('Image Post Route', () => {
     const res = await request(app).get('/api/v1/post');
     expect(res.body).toEqual([post1, post2]);
   });
-
 
   it('gets a tardygram post by id', async () => {
     const post = await Post.insert({
@@ -110,27 +107,26 @@ describe('Image Post Route', () => {
         photoUrl: 'alchemycrrrrylab',
         caption: 'waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaah',
         tags: ['tear', 'DJ', 'dJ'],
-        username: 'test_user'
+        username: 'test_user',
       },
       comments: [
         {
           id: '1',
           comment: 'haha, nice one',
           post: '1',
-          commentBy: 'test_user'
+          commentBy: 'test_user',
         },
         {
           id: '1',
           comment: 'super rad',
           post: '1',
-          commentBy: 'test_user'
-        }
-      ]
+          commentBy: 'test_user',
+        },
+      ],
     });
   });
 
   it('deletes a post by its id', async () => {
-
     const post = await Post.insert({
       photoUrl: 'alchemycrrrrylab',
       caption: 'waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaah',
@@ -141,7 +137,6 @@ describe('Image Post Route', () => {
     const res = await request(app).delete(`/api/v1/auth/post/${post.id}`);
     expect(res.body).toEqual({ message: `Post ${post.id} was deleted.` });
   });
-
 
   it('does not delete a post if the logged user does not match', async () => {
     await User.insert({
@@ -157,9 +152,10 @@ describe('Image Post Route', () => {
     });
 
     const res = await request(app).delete(`/api/v1/auth/post/${post.id}`);
-    expect(res.body).toEqual({ message: `You're not authorized to delete post ${post.id}.` });
+    expect(res.body).toEqual({
+      message: `You're not authorized to delete post ${post.id}.`,
+    });
   });
-
 
   it('Patch: update a post partially', async () => {
     const post = await Post.insert({
@@ -169,16 +165,17 @@ describe('Image Post Route', () => {
       username: 'test_user',
     });
 
-    const res = await request(app).patch(`/api/v1/auth/post/${post.id}`).send({ caption: 'xyz' });
+    const res = await request(app)
+      .patch(`/api/v1/auth/post/${post.id}`)
+      .send({ caption: 'xyz' });
 
     expect(res.body).toEqual({
       ...post,
-      caption: 'xyz'
-    }); 
+      caption: 'xyz',
+    });
   });
 
   it('gets top ten tardygram posts', async () => {
-
     const post1 = await Post.insert({
       photoUrl: 'alchemycrrrrylab',
       caption: 'waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaah',
@@ -249,107 +246,217 @@ describe('Image Post Route', () => {
       username: 'test_user',
     });
 
-    const post11 = await Post.insert({
+    await Post.insert({
       photoUrl: 'stairwelll',
       caption: 'tears are hydrating',
       tags: ['tear', '. kubisiak', 'kirby'],
       username: 'test_user',
     });
 
-    const comment1 = await Comment.insert({
+    await Comment.insert({
       comment: 'haha, nice one',
       post: post1.id,
-      commentBy: 'test_user'
+      commentBy: 'test_user',
     });
-    const comment2 = await Comment.insert({
+    
+    await Comment.insert({
       comment: 'haha, nice one',
       post: post2.id,
-      commentBy: 'test_user'
+      commentBy: 'test_user',
     });
-    const comment3 = await Comment.insert({
+    await Comment.insert({
       comment: 'haha, nice one',
       post: post3.id,
-      commentBy: 'test_user'
+      commentBy: 'test_user',
     });
-    const comment4 = await Comment.insert({
+    await Comment.insert({
       comment: 'haha, nice one',
       post: post4.id,
-      commentBy: 'test_user'
+      commentBy: 'test_user',
     });
-    const comment5 = await Comment.insert({
+    await Comment.insert({
       comment: 'haha, nice one',
       post: post5.id,
-      commentBy: 'test_user'
+      commentBy: 'test_user',
     });
-    const comment6 = await Comment.insert({
+    await Comment.insert({
       comment: 'haha, nice one',
       post: post6.id,
-      commentBy: 'test_user'
+      commentBy: 'test_user',
     });
-    const comment7 = await Comment.insert({
+    await Comment.insert({
       comment: 'haha, nice one',
       post: post7.id,
-      commentBy: 'test_user'
+      commentBy: 'test_user',
     });
-    const comment8 = await Comment.insert({
+    await Comment.insert({
       comment: 'haha, nice one',
       post: post8.id,
-      commentBy: 'test_user'
+      commentBy: 'test_user',
     });
-    const comment9 = await Comment.insert({
+    await Comment.insert({
       comment: 'haha, nice one',
       post: post9.id,
-      commentBy: 'test_user'
+      commentBy: 'test_user',
     });
-    const comment10 = await Comment.insert({
+    await Comment.insert({
       comment: 'haha, nice one',
       post: post10.id,
-      commentBy: 'test_user'
+      commentBy: 'test_user',
     });
-  
 
     const res = await request(app).get('/api/v1/post/popular');
-    console.log(res.body);
+
     expect(res.body).toEqual([
       {
-        post: post1,
-        comment: comment1
+        comment: {
+          comment: 'haha, nice one',
+          commentBy: 'test_user',
+          id: '10',
+          post: '10',
+        },
+        post: {
+          caption: 'tears are hydrating',
+          id: '10',
+          photoUrl: 'stairwelll',
+          tags: ['tear', '. kubisiak', 'kirby'],
+          username: 'test_user',
+        },
       },
       {
-        post: post2,
-        comment: comment2
+        comment: {
+          comment: 'haha, nice one',
+          commentBy: 'test_user',
+          id: '1',
+          post: '1',
+        },
+        post: {
+          caption: 'waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaah',
+          id: '1',
+          photoUrl: 'alchemycrrrrylab',
+          tags: ['tear', 'DJ', 'dJ'],
+          username: 'test_user',
+        },
       },
       {
-        post: post3,
-        comment: comment3
+        comment: {
+          comment: 'haha, nice one',
+          commentBy: 'test_user',
+          id: '7',
+          post: '7',
+        },
+        post: {
+          caption: 'tears are hydrating',
+          id: '7',
+          photoUrl: 'stairwelll',
+          tags: ['tear', '. kubisiak', 'kirby'],
+          username: 'test_user',
+        },
       },
       {
-        post: post4,
-        comment: comment4
+        comment: {
+          comment: 'haha, nice one',
+          commentBy: 'test_user',
+          id: '6',
+          post: '6',
+        },
+        post: {
+          caption: 'tears are hydrating',
+          id: '6',
+          photoUrl: 'stairwelll',
+          tags: ['tear', '. kubisiak', 'kirby'],
+          username: 'test_user',
+        },
       },
       {
-        post: post5,
-        comment: comment5
+        comment: {
+          comment: 'haha, nice one',
+          commentBy: 'test_user',
+          id: '9',
+          post: '9',
+        },
+        post: {
+          caption: 'tears are hydrating',
+          id: '9',
+          photoUrl: 'stairwelll',
+          tags: ['tear', '. kubisiak', 'kirby'],
+          username: 'test_user',
+        },
       },
       {
-        post: post6,
-        comment: comment6
+        comment: {
+          comment: 'haha, nice one',
+          commentBy: 'test_user',
+          id: '2',
+          post: '2',
+        },
+        post: {
+          caption: 'tears are hydrating',
+          id: '2',
+          photoUrl: 'stairwelll',
+          tags: ['tear', '. kubisiak', 'kirby'],
+          username: 'test_user',
+        },
       },
       {
-        post: post7,
-        comment: comment7
+        comment: {
+          comment: 'haha, nice one',
+          commentBy: 'test_user',
+          id: '3',
+          post: '3',
+        },
+        post: {
+          caption: 'tears are hydrating',
+          id: '3',
+          photoUrl: 'stairwelll',
+          tags: ['tear', '. kubisiak', 'kirby'],
+          username: 'test_user',
+        },
       },
       {
-        post: post8,
-        comment: comment8
+        comment: {
+          comment: 'haha, nice one',
+          commentBy: 'test_user',
+          id: '8',
+          post: '8',
+        },
+        post: {
+          caption: 'tears are hydrating',
+          id: '8',
+          photoUrl: 'stairwelll',
+          tags: ['tear', '. kubisiak', 'kirby'],
+          username: 'test_user',
+        },
       },
       {
-        post: post9,
-        comment: comment9
+        comment: {
+          comment: 'haha, nice one',
+          commentBy: 'test_user',
+          id: '5',
+          post: '5',
+        },
+        post: {
+          caption: 'tears are hydrating',
+          id: '5',
+          photoUrl: 'stairwelll',
+          tags: ['tear', '. kubisiak', 'kirby'],
+          username: 'test_user',
+        },
       },
       {
-        post: post10,
-        comment: comment10
+        comment: {
+          comment: 'haha, nice one',
+          commentBy: 'test_user',
+          id: '4',
+          post: '4',
+        },
+        post: {
+          caption: 'tears are hydrating',
+          id: '4',
+          photoUrl: 'stairwelll',
+          tags: ['tear', '. kubisiak', 'kirby'],
+          username: 'test_user',
+        },
       },
     ]);
   });
@@ -404,7 +511,4 @@ describe('comment routes', () => {
       message: `${res.body.comment} has been deleted`,
     });
   });
- 
-
-
 });
