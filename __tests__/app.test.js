@@ -169,7 +169,7 @@ describe('Image Post Route', () => {
       username: 'test_user',
     });
 
-    const res = await request(app).patch(`/api/v1/patch/${post.id}`).send({ caption: 'xyz' });
+    const res = await request(app).patch(`/api/v1/auth/post/${post.id}`).send({ caption: 'xyz' });
 
     expect(res.body).toEqual({
       ...post,
