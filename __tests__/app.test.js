@@ -144,10 +144,10 @@ describe('Image Post Route', () => {
 
 
   it('does not delete a post if the logged user does not match', async () => {
-    // await User.insert({
-    //   username: 'best_user',
-    //   avatarUrl: 'http://example.com/image.png',
-    // });
+    await User.insert({
+      username: 'best_user',
+      avatarUrl: 'http://example.com/image.png',
+    });
 
     const post = await Post.insert({
       photoUrl: 'alchemycrrrrylab',
@@ -158,6 +158,23 @@ describe('Image Post Route', () => {
 
     const res = await request(app).delete(`/api/v1/auth/post/${post.id}`);
     expect(res.body).toEqual({ message: `You're not authorized to delete post ${post.id}.` });
+  });
+
+
+  it('Patch: update a post partially', async () => {
+    const post = await Post.insert({
+      photoUrl: 'alchemycrrrrylab',
+      caption: 'waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaah',
+      tags: ['tear', 'DJ', 'dJ'],
+      username: 'test_user',
+    });
+
+    const res = await request(app).patch(`/api/v1/patch/${post.id}`).send({ caption: 'xyz' });
+
+    expect(res.body).toEqual({
+      ...post,
+      caption: 'xyz'
+    }); 
   });
 });
 
@@ -210,4 +227,7 @@ describe('comment routes', () => {
       message: `${res.body.comment} has been deleted`,
     });
   });
+ 
+
+
 });
