@@ -176,6 +176,183 @@ describe('Image Post Route', () => {
       caption: 'xyz'
     }); 
   });
+
+  it('gets top ten tardygram posts', async () => {
+
+    const post1 = await Post.insert({
+      photoUrl: 'alchemycrrrrylab',
+      caption: 'waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaah',
+      tags: ['tear', 'DJ', 'dJ'],
+      username: 'test_user',
+    });
+
+    const post2 = await Post.insert({
+      photoUrl: 'stairwelll',
+      caption: 'tears are hydrating',
+      tags: ['tear', '. kubisiak', 'kirby'],
+      username: 'test_user',
+    });
+
+    const post3 = await Post.insert({
+      photoUrl: 'stairwelll',
+      caption: 'tears are hydrating',
+      tags: ['tear', '. kubisiak', 'kirby'],
+      username: 'test_user',
+    });
+
+    const post4 = await Post.insert({
+      photoUrl: 'stairwelll',
+      caption: 'tears are hydrating',
+      tags: ['tear', '. kubisiak', 'kirby'],
+      username: 'test_user',
+    });
+
+    const post5 = await Post.insert({
+      photoUrl: 'stairwelll',
+      caption: 'tears are hydrating',
+      tags: ['tear', '. kubisiak', 'kirby'],
+      username: 'test_user',
+    });
+
+    const post6 = await Post.insert({
+      photoUrl: 'stairwelll',
+      caption: 'tears are hydrating',
+      tags: ['tear', '. kubisiak', 'kirby'],
+      username: 'test_user',
+    });
+
+    const post7 = await Post.insert({
+      photoUrl: 'stairwelll',
+      caption: 'tears are hydrating',
+      tags: ['tear', '. kubisiak', 'kirby'],
+      username: 'test_user',
+    });
+
+    const post8 = await Post.insert({
+      photoUrl: 'stairwelll',
+      caption: 'tears are hydrating',
+      tags: ['tear', '. kubisiak', 'kirby'],
+      username: 'test_user',
+    });
+
+    const post9 = await Post.insert({
+      photoUrl: 'stairwelll',
+      caption: 'tears are hydrating',
+      tags: ['tear', '. kubisiak', 'kirby'],
+      username: 'test_user',
+    });
+
+    const post10 = await Post.insert({
+      photoUrl: 'stairwelll',
+      caption: 'tears are hydrating',
+      tags: ['tear', '. kubisiak', 'kirby'],
+      username: 'test_user',
+    });
+
+    const post11 = await Post.insert({
+      photoUrl: 'stairwelll',
+      caption: 'tears are hydrating',
+      tags: ['tear', '. kubisiak', 'kirby'],
+      username: 'test_user',
+    });
+
+    const comment1 = await Comment.insert({
+      comment: 'haha, nice one',
+      post: post1.id,
+      commentBy: 'test_user'
+    });
+    const comment2 = await Comment.insert({
+      comment: 'haha, nice one',
+      post: post2.id,
+      commentBy: 'test_user'
+    });
+    const comment3 = await Comment.insert({
+      comment: 'haha, nice one',
+      post: post3.id,
+      commentBy: 'test_user'
+    });
+    const comment4 = await Comment.insert({
+      comment: 'haha, nice one',
+      post: post4.id,
+      commentBy: 'test_user'
+    });
+    const comment5 = await Comment.insert({
+      comment: 'haha, nice one',
+      post: post5.id,
+      commentBy: 'test_user'
+    });
+    const comment6 = await Comment.insert({
+      comment: 'haha, nice one',
+      post: post6.id,
+      commentBy: 'test_user'
+    });
+    const comment7 = await Comment.insert({
+      comment: 'haha, nice one',
+      post: post7.id,
+      commentBy: 'test_user'
+    });
+    const comment8 = await Comment.insert({
+      comment: 'haha, nice one',
+      post: post8.id,
+      commentBy: 'test_user'
+    });
+    const comment9 = await Comment.insert({
+      comment: 'haha, nice one',
+      post: post9.id,
+      commentBy: 'test_user'
+    });
+    const comment10 = await Comment.insert({
+      comment: 'haha, nice one',
+      post: post10.id,
+      commentBy: 'test_user'
+    });
+  
+
+    const res = await request(app).get('/api/v1/post/popular');
+    console.log(res.body);
+    expect(res.body).toEqual([
+      {
+        post: post1,
+        comment: comment1
+      },
+      {
+        post: post2,
+        comment: comment2
+      },
+      {
+        post: post3,
+        comment: comment3
+      },
+      {
+        post: post4,
+        comment: comment4
+      },
+      {
+        post: post5,
+        comment: comment5
+      },
+      {
+        post: post6,
+        comment: comment6
+      },
+      {
+        post: post7,
+        comment: comment7
+      },
+      {
+        post: post8,
+        comment: comment8
+      },
+      {
+        post: post9,
+        comment: comment9
+      },
+      {
+        post: post10,
+        comment: comment10
+      },
+    ]);
+  });
 });
 
 describe('comment routes', () => {
