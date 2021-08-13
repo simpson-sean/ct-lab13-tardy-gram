@@ -62,7 +62,7 @@ describe('Image Post Route', () => {
   });
 
 
-  it('gets all tradygram posts', async () => {
+  it('gets all tardygram posts', async () => {
 
     const post1 = await Post.insert({
       photoUrl: 'alchemycrrrrylab',
@@ -75,11 +75,11 @@ describe('Image Post Route', () => {
       photoUrl: 'stairwelll',
       caption: 'tears are hydrating',
       tags: ['tear', '. kubisiak', 'kirby'],
-      username: 'best_user',
+      username: 'test_user',
     });
 
-    const res = request(app).get('/api/v1/posts');
-
+    const res = await request(app).get('/api/v1/post');
+    // console.log('res', res);
     expect(res.body).toEqual([post1, post2]);
   });
 
