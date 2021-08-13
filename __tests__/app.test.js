@@ -61,6 +61,30 @@ describe('Image Post Route', () => {
     });
   });
 
+
+  it('gets all tradygram posts', async () => {
+
+    const post1 = await Post.insert({
+      photoUrl: 'alchemycrrrrylab',
+      caption: 'waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaah',
+      tags: ['tear', 'DJ', 'dJ'],
+      username: 'test_user',
+    });
+
+    const post2 = await Post.insert({
+      photoUrl: 'stairwelll',
+      caption: 'tears are hydrating',
+      tags: ['tear', '. kubisiak', 'kirby'],
+      username: 'best_user',
+    });
+
+    const res = request(app).get('/api/v1/posts');
+
+    expect(res.body).toEqual([post1, post2]);
+  });
+
+
+
   it('gets a tardygram post by id', async () => {
     const post = await Post.insert({
       photoUrl: 'alchemycrrrrylab',
@@ -82,12 +106,12 @@ describe('Image Post Route', () => {
     });
 
     const res = await request(app).get(`/api/v1/post/${post.id}`);
-    expect(res.body).toEqual(    {
+    expect(res.body).toEqual({
       post: {
         id: '1',
         photoUrl: 'alchemycrrrrylab',
         caption: 'waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaah',
-        tags: [ 'tear', 'DJ', 'dJ' ],
+        tags: ['tear', 'DJ', 'dJ'],
         username: 'test_user'
       },
       comments: [
