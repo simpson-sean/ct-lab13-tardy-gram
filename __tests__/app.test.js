@@ -69,13 +69,12 @@ describe('Image Post Route', () => {
       username: 'test_user',
     });
 
-    const comment = await Comment.insert({
+    await Comment.insert({
       comment: 'haha, nice one',
       post: 1,
       commentBy: 'test_user',
     });
 
-    console.log('######################################', comment);
     await Comment.insert({
       comment: 'super rad',
       post: 1,
@@ -83,13 +82,28 @@ describe('Image Post Route', () => {
     });
 
     const res = await request(app).get(`/api/v1/post/${post.id}`);
-    expect(res.body).toEqual({
-      photo_url: 'alchemycrrrrylab',
-      caption: 'waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaah',
-      tags: ['tear', 'DJ', 'dJ'],
-      username: 'test_user',
-      comment: 'haha, nice one', post: '1', comment_by: 'test_user',
-      id: '1',
+    expect(res.body).toEqual(    {
+      post: {
+        id: '1',
+        photoUrl: 'alchemycrrrrylab',
+        caption: 'waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaah',
+        tags: [ 'tear', 'DJ', 'dJ' ],
+        username: 'test_user'
+      },
+      comments: [
+        {
+          id: '1',
+          comment: 'haha, nice one',
+          post: '1',
+          commentBy: 'test_user'
+        },
+        {
+          id: '1',
+          comment: 'super rad',
+          post: '1',
+          commentBy: 'test_user'
+        }
+      ]
     });
   });
 });
