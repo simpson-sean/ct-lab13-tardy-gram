@@ -83,7 +83,6 @@ describe('Image Post Route', () => {
   });
 
 
-
   it('gets a tardygram post by id', async () => {
     const post = await Post.insert({
       photoUrl: 'alchemycrrrrylab',
@@ -141,6 +140,24 @@ describe('Image Post Route', () => {
 
     const res = await request(app).delete(`/api/v1/auth/post/${post.id}`);
     expect(res.body).toEqual({ message: `Post ${post.id} was deleted.` });
+  });
+
+
+  it('does not delete a post if the logged user does not match', async () => {
+    // await User.insert({
+    //   username: 'best_user',
+    //   avatarUrl: 'http://example.com/image.png',
+    // });
+
+    const post = await Post.insert({
+      photoUrl: 'alchemycrrrrylab',
+      caption: 'waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaah',
+      tags: ['tear', 'DJ', 'dJ'],
+      username: 'best_user',
+    });
+
+    const res = await request(app).delete(`/api/v1/auth/post/${post.id}`);
+    expect(res.body).toEqual({ message: `You're not authorized to delete post ${post.id}.` });
   });
 });
 

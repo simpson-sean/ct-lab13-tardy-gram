@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS posts CASCADE;
-DROP TABLE IF EXISTS comments; 
+DROP TABLE IF EXISTS comments;
 CREATE TABLE users (
   github_username TEXT NOT NULL PRIMARY KEY,
   github_avatar_url TEXT NOT NULL
@@ -15,8 +15,6 @@ CREATE TABLE posts (
 CREATE TABLE comments (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   comment TEXT NOT NULL,
-  post BIGINT NOT NULL REFERENCES posts(id),  
+  post BIGINT NOT NULL REFERENCES posts(id),
   comment_by TEXT NOT NULL REFERENCES users(github_username)
-); 
-
-
+);
