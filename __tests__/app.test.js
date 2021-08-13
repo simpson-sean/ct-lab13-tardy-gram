@@ -79,7 +79,6 @@ describe('Image Post Route', () => {
     });
 
     const res = await request(app).get('/api/v1/post');
-    // console.log('res', res);
     expect(res.body).toEqual([post1, post2]);
   });
 
@@ -129,6 +128,19 @@ describe('Image Post Route', () => {
         }
       ]
     });
+  });
+
+  it('deletes a post by its id', async () => {
+
+    const post = await Post.insert({
+      photoUrl: 'alchemycrrrrylab',
+      caption: 'waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaah',
+      tags: ['tear', 'DJ', 'dJ'],
+      username: 'test_user',
+    });
+
+    const res = await request(app).delete(`/api/v1/post/${post.id}`);
+    expect(res.body).toEqual({ message: `Post ${post.id} was deleted.` });
   });
 });
 
