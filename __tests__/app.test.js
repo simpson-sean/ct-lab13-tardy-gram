@@ -139,7 +139,7 @@ describe('Image Post Route', () => {
       username: 'test_user',
     });
 
-    const res = await request(app).delete(`/api/v1/post/${post.id}`);
+    const res = await request(app).delete(`/api/v1/auth/post/${post.id}`);
     expect(res.body).toEqual({ message: `Post ${post.id} was deleted.` });
   });
 });
